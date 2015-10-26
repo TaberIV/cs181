@@ -1,0 +1,86 @@
+/*
+ * BinaryPeriodic.java
+ *
+ * "I pledge my honor that I have abided by the Stevens Honor System."
+ *
+ */
+
+/**
+ * Converts binary frational numbers, with or without periodics, to decimal
+ * 
+ * @author    Taber McFarlin
+ * @version   1.0
+ * @since     20150923
+ *
+ */
+public class BinaryPeriodic {
+    /**
+     * Converts binary frational number to decimal and represents the integer part, antiperiod,
+     * and periodic as three fractions. The integer is converted to binary normally, the aniperiod
+     * is converted to binary normally, and then is divided by 
+     * 
+     */
+    public static void main(String[] args){
+	if(args.length != 1) {
+	    System.out.println("Input error: BinaryPeriodic takes exactly one argument");
+	    return;
+	}
+	if(!args[0].contains(".") || !args[0].contains("_")) {
+	    System.out.println("Input error: BinaryPeriodic takes exactly one argument\n" +
+			       " that is a periodic binary number");
+	    return;
+	}
+	
+	String integerPartS = args[0].substring(0, args[0].indexOf('.')),
+	    antiperiodS = args[0].substring(args[0].indexOf('.')+1, args[0].indexOf('_')),
+	    periodS = args[0].substring(args[0].indexOf('_')+1),
+	    output = new String();
+	
+	int integerPart = BinaryToDecimal(integerPartS),
+	    antiperiod  = BinaryToDecimal(antiperiodS),
+	    period      = BinaryToDecimal(periodS),
+	    antiperiodD = (int) Math.pow(2, antiperiodS.length()),
+	    periodD     = (int) ((Math.pow(2, periodS.length()) - 1) * Math.pow(2, antiperiodS.length())),
+	    fracTop1, fracTop2, fracBot, divisor;
+	
+	fracTop1 = antiperiod * periodD;
+	fracTop2 = period * antiperiodD;
+	fracBot  = antiperiodD * periodD;
+	fracTop1 += fracTop2;
+
+	divisor = gcd(fracTop1, fracBot);
+
+	output = integerPart + " + " + fracTop1/divisor + "/" + fracBot/divisor;
+	
+	/* Alternate code for writing fractions for antiperiodic and periodic seperatley:
+	output += integerPart;	
+	if(antiperiod > 0)
+	    output += " + " + antiperiod + "/" + antiperiodD;
+	if(period > 0)
+	    output += " + " + period + "/" + periodD;
+	*/
+	
+	System.out.println(output);
+	
+    }
+    
+    static int BinaryToDecimal(String binary){
+	int decimal = 0;
+
+	for(int i=0; i<binary.length(); i++)
+	    decimal += (binary.charAt((binary.length() - i) - 1) - '0') * Math.pow(2, i);
+
+	return decimal;
+    }
+
+    static int gcd(int a, int b){
+	while(b != 0){
+	    if(a > b)
+		a -= b;
+	    else
+		b -= a;
+	}
+	
+	return a;
+    }
+}

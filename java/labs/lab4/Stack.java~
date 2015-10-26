@@ -1,0 +1,17 @@
+/*
+ * stack.java
+ *
+ * "I pledge my honor that I havee abided by the Stevens Honor System"
+ *
+ */
+
+package lab4;
+
+/**
+ * Creates a stack class
+ *
+ * @author    Taber McFarlin and Corey Barnwell
+ * @since     20151020
+ *
+ */
+public class Stack
