@@ -1,0 +1,22 @@
+/*
+ * RingBuffer.java
+ *
+ * "I pledge my honor I have abided by the Stevens Honor System."
+ *
+ * Taber McFarlin (c) 2015
+ *
+ */
+
+/**
+ * Implemants code for ring buffer feedback  
+ * mechanism from Karplus-Strong algorithm
+ * 
+ * @author Taber McFarlin
+ * @since 20151027
+ *
+ */
+public class RingBuffer {
+    private double[] buffer;
+    
+    
+}
