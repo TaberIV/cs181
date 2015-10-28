@@ -24,42 +24,39 @@ public class RingBuffer {
     public RingBuffer(int capacity) {
 	buffer = new double[capacity];
 	first = 0;
-	last = -1;
+	last = 0;
     }
 
     int getSize() {
-	return Math.abs(first - (last + 1));
+	if((first == last) && buffer[first] == Float.NaN)
+	    return 0;
+	else if (first < last)
+	    return (last - first);
+	else
+	    return last + buffer.length - first + 1;
     }
 
     boolean isEmpty() {
-	return (first == last);
+	return (getSize() == 0);
     }
     
     boolean isFull() {
-	return (((last + 1) % buffer.length) == first);
+	return (getSize() == buffer.length);
     }
     
     void enqueue(double x) {
-	if(!isFull()) {
-	    last = (last + 1) % buffer.length;
-	}
-	else {
-	    //Throw some error
-	}
 	buffer[last] = x;
-    }
-    
-    double peek() {
-	return buffer[first];
+	last = (last + 1) % buffer.length;
     }
     
     double dequeue() {
-	if(!isEmpty()) {
-	    first = (first + 1) % buffer.length;
-	}
-	else {
-	    //Throw some error
-	}
-	return buffer[first - 1];
+	double x = buffer[first];
+	buffer[first] = Float.NaN;
+	first = (first + 1) % buffer.length;
+        return x;
+    }
+
+    double peek() {
+	return buffer[first];
     }
 }

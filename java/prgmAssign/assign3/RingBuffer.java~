@@ -7,6 +7,8 @@
  *
  */
 
+package assign3;
+
 /**
  * Implemants code for ring buffer feedback  
  * mechanism from Karplus-Strong algorithm
@@ -17,6 +19,57 @@
  */
 public class RingBuffer {
     private double[] buffer;
+    private int first, last;
     
+    public RingBuffer(int capacity) {
+	buffer = new double[capacity];
+	first = 0;
+	last = -1;
+    }
+
+    int getSize() {
+	if (last > first)
+	    return (last - first + 1);
+	else
+	    return buffer.length - (first - last);
+    }
+
+    boolean isEmpty() {
+	return (first == last);
+    }
     
+    boolean isFull() {
+	return (((last + 1) % buffer.length) == first);
+    }
+    
+    void enqueue(double x) {
+	last = (last + 1) % buffer.length;
+	buffer[last] = x;
+    }
+    
+    double peek() {
+	return buffer[first];
+    }
+    
+    double dequeue() {
+	first = ((first + 1) % buffer.length);
+	return buffer[(first - 1) % getSize()];
+    }
+
+    public static void main(String[] args) {
+	RingBuffer test = new RingBuffer(8);
+
+	System.out.println(test.getSize());
+	for(int i=0;  i<8; i++) {
+	    test.enqueue(Math.random() - .5);
+	    System.out.println(test.getSize());
+	}
+
+	System.out.println('\n');
+	double x;
+	for(int i=0;  i<8; i++) {
+	    x = test.dequeue();
+	    System.out.println(test.getSize());
+	}
+    }
 }
