@@ -8,8 +8,7 @@
 package assign3;
 
 import cos126.*;
-import java.util.Scanner;
-import java.io.File;
+import java.io.*;
 
 /**
  */
@@ -18,7 +17,7 @@ public class GuitarHero {
 	final String keyboard = "1234567890qwertyuiopasdfghjklzxcvbnm,";
 	char key;
 	int keyIndex;
-	double sample;
+	double sample = 0;
 	GuitarString[] strings = new GuitarString[37];
 
 	for(int i=0; i<37; i++){
@@ -37,7 +36,7 @@ public class GuitarHero {
 
 		sample = 0;
 		for(GuitarString string : strings)
-		    sample += 10*string.sample();
+		    sample += string.sample();
 
 		StdAudio.play(sample);
 
@@ -46,11 +45,47 @@ public class GuitarHero {
 	    }
 	}
 	else if (args.length == 2 && args[0].equals("-play_from_file")) {
-	    //File song = new File(args[1]);
-	    Scanner song = new Scanner(args[1]);
-	    song.next();
-	    System.out.println(song.next());
+	    try {
+		String file = "assign3/" + args[1], line;
+		FileReader fileReader = new FileReader(file);
+		BufferedReader buffer = new BufferedReader(fileReader);
+		long time;
+
+		line = buffer.readLine();
+		time = Long.parseLong(line.substring(0, line.indexOf(" ")));
+		do {
+		    
+		    
+		    if(strings[0].time() == time) {
+			for(int i=(line.indexOf(" ")+1); i<line.length(); i++){
+			    strings[keyboard.indexOf(line.charAt(i))].pluck();
+			}
+			line = buffer.readLine();
+			time = Long.parseLong(line.substring(0, line.indexOf(" ")));
+		    }
+		    
+		    while(strings[0].time < time) {
+			sample = 0;
+			for(GuitarString string : strings)
+			    sample += string.sample();
+
+			StdAudio.play(sample);
+		    
+			for(GuitarString string : strings)
+			    string.tic();
+		    }
+		    
+		} while(line.substring(line.indexOf(" ")).length() > 1);
+		
+		buffer.close();
+	    }
 	    
+	    catch(FileNotFoundException ex) {
+		System.out.println("Unable to open file '" + args[1] +  "'");
+	    }
+	    catch(IOException ex) {
+		System.out.println("Error reading file '" + args[1] + "'");
+	    }
 	}
 	else { 
 	    System.out.println("GuitarHero.java has two optional arguments,"
