@@ -46,7 +46,7 @@ public class GuitarHero {
 	    }
 	}
 	else if (args.length == 2 && args[0].equals("-play_from_file")) {
-	    //File song = new File(args[1]);
+	    File song = new File(args[1]);
 	    Scanner song = new Scanner(args[1]);
 	    song.next();
 	    System.out.println(song.next());
