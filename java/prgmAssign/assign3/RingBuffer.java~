@@ -51,7 +51,7 @@ public class RingBuffer {
     
     double dequeue() {
 	double x = buffer[first];
-	//buffer[first] = Float.NaN;
+	buffer[first] = Float.NaN;
 	first = (first + 1) % buffer.length;
         return x;
     }

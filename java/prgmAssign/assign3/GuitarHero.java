@@ -13,24 +13,33 @@ import cos126.*;
  */
 public class GuitarHero {
     public static void main(String[] args) {
-	final double CONCERT_A = 440.0,
-	    CONCERT_C = CONCERT_A * Math.pow(2, 3.0/12.0);
-	GuitarString stringA = new GuitarString(CONCERT_A);
-	GuitarString stringC = new GuitarString(CONCERT_C);
+	final String keyboard = "1234567890qwertyuiopasdfghjklzxcvbnm,";
+	char key;
+	int keyIndex;
+	double sample;
+	GuitarString[] strings = new GuitarString[37];
 
+	for(int i=0; i<37; i++){
+	    strings[i] = new GuitarString(440.0 * Math.pow(2, (i - 24)/12.0));
+	}
+	
 	while(true) {
 	    if (StdDraw.hasNextKeyTyped()) {
-		char key = StdDraw.nextKeyTyped();
-		if      (key == 'A') { stringA.pluck(); }
-		else if (key == 'C') { stringC.pluck(); }
+		key = StdDraw.nextKeyTyped();
+		keyIndex = keyboard.indexOf(key);
+
+		if(keyIndex != -1)
+		    strings[keyIndex].pluck();
 	    }
 
-	    double sample = stringA.sample() + stringC.sample();
+	    sample = 0;
+	    for(GuitarString string : strings)
+		sample += 10*string.sample();
 
 	    StdAudio.play(sample);
 
-	    stringA.tic();
-	    stringC.tic();
+	    for(GuitarString string : strings)
+		string.tic();
 	}
     }
 }

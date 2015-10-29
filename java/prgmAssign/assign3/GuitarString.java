@@ -19,10 +19,12 @@ public class GuitarString {
     RingBuffer buffer;
     int time;
     final double decay = 0.996;
-    final double samplingRate = 44100;
+    double frequency;
+    final int samplingRate = 44100;
     
     public GuitarString(double frequency) {
 	buffer = new RingBuffer((int) Math.round(samplingRate/frequency));
+	this.frequency = frequency;
     }
 
     public GuitarString(double[] init) {
@@ -34,7 +36,7 @@ public class GuitarString {
     }
 
     public void pluck() {
-	buffer = new RingBuffer(buffer.getSize());
+	buffer = new RingBuffer((int) Math.round(samplingRate/frequency));
 	
 	for(int i=0; i<buffer.getSize(); i++) {
 	    buffer.enqueue(Math.random() - .5);
@@ -43,7 +45,7 @@ public class GuitarString {
 
     public void tic() {
 	double x = buffer.dequeue();
-	buffer.enqueue((x + buffer.peek())/2 * decay);
+	buffer.enqueue(((x + buffer.peek())/2.0) * decay);	
 	time++;
     }
 
