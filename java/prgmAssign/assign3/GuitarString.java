@@ -43,7 +43,7 @@ public class GuitarString {
 
     public void tic() {
 	double x = buffer.dequeue();
-	buffer.enqueue(x * buffer.peek() * decay);
+	buffer.enqueue((x + buffer.peek())/2 * decay);
 	time++;
     }
 

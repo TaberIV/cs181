@@ -20,7 +20,7 @@ public class GuitarHero {
 	GuitarString stringC = new GuitarString(CONCERT_C);
 
 	while(true) {
-	    if (StdDraw.hasNextTyped()) {
+	    if (StdDraw.hasNextKeyTyped()) {
 		char key = StdDraw.nextKeyTyped();
 		if      (key == 'A') { stringA.pluck(); }
 		else if (key == 'C') { stringC.pluck(); }
@@ -31,7 +31,7 @@ public class GuitarHero {
 	    StdAudio.play(sample);
 
 	    stringA.tic();
-	    stringC.tic();
+	    //stringC.tic();
 	}
     }
 }

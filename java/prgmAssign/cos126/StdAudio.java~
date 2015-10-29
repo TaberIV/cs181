@@ -17,6 +17,8 @@ import javax.sound.sampled.*;
 import java.net.*;
 import java.applet.*;
 
+import assign3.RingBuffer;
+
 public final class StdAudio {
 
     private static final int BYTES_PER_SAMPLE = 2;                // 16-bit audio

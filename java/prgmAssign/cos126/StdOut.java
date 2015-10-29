@@ -11,8 +11,6 @@ import java.io.UnsupportedEncodingException;
 import java.io.PrintWriter;
 import java.io.OutputStreamWriter;
 
-import assign3.RingBuffer;
-
 public final class StdOut {
 
     // force Unicode UTF-8 encoding; otherwise it's system dependent

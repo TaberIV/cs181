@@ -28,8 +28,6 @@ import javax.swing.*;
 import javax.imageio.ImageIO;
 import java.util.LinkedList;
 
-import assign3.RingBuffer;
-
 /**
  *  &lt;i&gt;Standard draw&lt;/i&gt;. This class provides a basic capability for 
  *  creating drawings with your programs. It uses a simple graphics model that

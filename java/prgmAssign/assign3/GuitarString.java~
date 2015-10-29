@@ -16,13 +16,13 @@ package assign3;
  *
  */
 public class GuitarString {
-    Ringbuffer buffer;
+    RingBuffer buffer;
     int time;
     final double decay = 0.996;
-    final int samplingRate = 44100;
+    final double samplingRate = 44100;
     
     public GuitarString(double frequency) {
-	buffer = new RingBuffer(Math.round(44100/frequency));
+	buffer = new RingBuffer((int) Math.round(samplingRate/frequency));
     }
 
     public GuitarString(double[] init) {
@@ -43,7 +43,7 @@ public class GuitarString {
 
     public void tic() {
 	double x = buffer.dequeue();
-	buffer.enqueue(x * buffer.peex() * decay);
+	buffer.enqueue(x * buffer.peek() * decay);
 	time++;
     }
 

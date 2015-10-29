@@ -7,8 +7,7 @@
 
 package assign3;
 
-import cos126.StdDraw;
-import cos126.StdAudio;
+import cos126.*;
 
 /**
  */
@@ -31,7 +30,7 @@ public class GuitarHero {
 	    StdAudio.play(sample);
 
 	    stringA.tic();
-	    //stringC.tic();
+	    stringC.tic();
 	}
     }
 }
