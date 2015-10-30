@@ -54,14 +54,12 @@ public class GuitarHero {
 		line = buffer.readLine();
 		time = Long.parseLong(line.substring(0, line.indexOf(" ")));
 		do {
-		    
-		    
 		    if(strings[0].time() == time) {
 			for(int i=(line.indexOf(" ")+1); i<line.length(); i++){
 			    strings[keyboard.indexOf(line.charAt(i))].pluck();
 			}
 			line = buffer.readLine();
-			time = Long.parseLong(line.substring(0, line.indexOf(" ")));
+			time = (long) (10000.0 * Double.parseDouble(line.substring(0, line.indexOf(" "))));
 		    }
 		    
 		    while(strings[0].time < time) {
