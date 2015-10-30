@@ -49,20 +49,24 @@ public class GuitarHero {
 		String file = "assign3/" + args[1], line;
 		FileReader fileReader = new FileReader(file);
 		BufferedReader buffer = new BufferedReader(fileReader);
-		long time;
-
-		line = buffer.readLine();
-		time = Long.parseLong(line.substring(0, line.indexOf(" ")));
+		long playTime;
+		
 		do {
-		    if(strings[0].time() == time) {
-			for(int i=(line.indexOf(" ")+1); i<line.length(); i++){
-			    strings[keyboard.indexOf(line.charAt(i))].pluck();
-			}
+		    do {
 			line = buffer.readLine();
-			time = (long) (10000.0 * Double.parseDouble(line.substring(0, line.indexOf(" "))));
+		    } while(line.equals(""));
+
+		    if(line.equals("!")){
+			break;
 		    }
 		    
-		    while(strings[0].time < time) {
+		    playTime = (long) (17000.0 * Double.parseDouble(line.substring(0, line.indexOf(" "))));
+		    
+		    for(int i=(line.indexOf(" ")+1); i<line.length(); i++){
+			strings[keyboard.indexOf(line.charAt(i))].pluck();
+		    }
+		    
+		    while(playTime > 0) {
 			sample = 0;
 			for(GuitarString string : strings)
 			    sample += string.sample();
@@ -71,9 +75,11 @@ public class GuitarHero {
 		    
 			for(GuitarString string : strings)
 			    string.tic();
+
+			playTime--;
 		    }
 		    
-		} while(line.substring(line.indexOf(" ")).length() > 1);
+		} while(true);
 		
 		buffer.close();
 	    }

@@ -36,9 +36,10 @@ public class GuitarString {
     }
 
     public void pluck() {
-	buffer = new RingBuffer((int) Math.round(samplingRate/frequency));
+	int capacity = (int) Math.round(samplingRate/frequency);
+	buffer = new RingBuffer(capacity);
 	
-	for(int i=0; i<buffer.getSize(); i++) {
+	for(int i=0; i<capacity; i++) {
 	    buffer.enqueue(Math.random() - .5);
 	}
     }
