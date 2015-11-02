@@ -13,10 +13,19 @@ import java.io.*;
 /**
  */
 public class GuitarHero {
+    /*
+     * Plays notes entered by key stroke or file
+     *
+     * @param play_from_file, if prestent, plays notes from indicated file
+     * @param file, simply a String of the name of a file in the package directory
+     *        Should be formatted with an integer indicating how long to play the 
+     *        following notes, followed by a space, followed by charecters
+     *        that can befound in the string keyboard, defined below.
+     *        The file should end with a line containing only a '!' 
+     */
     public static void main(String[] args) {
 	final String keyboard = "1234567890qwertyuiopasdfghjklzxcvbnm,";
-	char key;
-	int keyIndex;
+	char key; //Stores a keystroke, not musical key
 	double sample = 0;
 	GuitarString[] strings = new GuitarString[37];
 
@@ -28,10 +37,9 @@ public class GuitarHero {
 	    while(true) {
 		if (StdDraw.hasNextKeyTyped()) {
 		    key = StdDraw.nextKeyTyped();
-		    keyIndex = keyboard.indexOf(key);
 
-		    if(keyIndex != -1)
-			strings[keyIndex].pluck();
+		    if(keyboard.indexOf(key) != -1)
+			strings[keyboard.indexOf(key)].pluck();
 		}
 
 		sample = 0;
@@ -61,6 +69,7 @@ public class GuitarHero {
 		    }
 		    
 		    playTime = (long) (17000.0 * Double.parseDouble(line.substring(0, line.indexOf(" "))));
+		    //17000.0 was considered a decent number to make an entered 1 about 1 beat
 		    
 		    for(int i=(line.indexOf(" ")+1); i<line.length(); i++){
 			strings[keyboard.indexOf(line.charAt(i))].pluck();
@@ -87,7 +96,7 @@ public class GuitarHero {
 	    catch(FileNotFoundException ex) {
 		System.out.println("Unable to open file '" + args[1] +  "'");
 	    }
-	    catch(IOException ex) {
+	    catch(Exception e) {
 		System.out.println("Error reading file '" + args[1] + "'");
 	    }
 	}
