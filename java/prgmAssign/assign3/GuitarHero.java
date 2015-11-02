@@ -18,10 +18,10 @@ public class GuitarHero {
      *
      * @param play_from_file, if prestent, plays notes from indicated file
      * @param file, simply a String of the name of a file in the package directory
-     *        Should be formatted with an integer indicating how long to play the 
-     *        following notes, followed by a space, followed by charecters
-     *        that can befound in the string keyboard, defined below.
-     *        The file should end with a line containing only a '!' 
+     *        Should be formatted with a number (decimal point values are accepted
+     *        indicating how long to play the following notes, followed by a space,
+     *        followed by charecters that can befound in the string keyboard
+     *	      defined below. The file should end with a line containing only a '!' 
      */
     public static void main(String[] args) {
 	final String keyboard = "1234567890qwertyuiopasdfghjklzxcvbnm,";
